@@ -533,7 +533,7 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` (`code`, `store_id`, `name`, `email`, `password`, `salt`, `joined_on`, `role`, `status`)
 VALUES
 	('10wxg11jsabfnwt','asdfasdfasdfasd','John Doe','test@test.com','4282e66f4b3970564cd3c4c2352ffe88','5qU3s6t97m6tNHjN1ESZCYarjHNWnKHh','2019-02-18 12:28:11',1,1),
-	('2mpwk0a1jsfydkxn','asdfasdfasdfasd','hery','hery@gmail.com','16c67f5378f248f73699ee5a9ba9384f','r8ML4glfxgGe35a0Nsjx8bSZAFWlSmae','2019-02-22 11:09:16',1,1),
+	('2mpwk0a1jsfydkxn','asdfasdfasdfasd','hery','hery@gmail.com','16c67f5378f248f73699ee5a9ba9384f','r8ML4glfxgGe35a0Nsjx8bSZAFWlSmae','2019-02-22 11:09:16',1,1);
 	
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
