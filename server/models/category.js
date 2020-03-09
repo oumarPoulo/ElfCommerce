@@ -48,7 +48,7 @@ Category.prototype.get = function(code) {
         }
 
         const { code, name, storeId, level, parentId, status } = results[0];
-        return resolve(
+        resolve(
           new Category(code, name, storeId, '', level, parentId, status)
         );
       }
