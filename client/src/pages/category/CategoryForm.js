@@ -62,7 +62,7 @@ const CategoryForm = props => {
       }
     }
     
-    if (id && typeof id !== 'undefined') {
+    if (id) {
       fetchItemDetails();  
     }
   }, []);
