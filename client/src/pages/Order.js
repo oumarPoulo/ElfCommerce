@@ -45,7 +45,7 @@ const Order = props => {
       <div className="content-body">
         <Row>
           <Col md={12}>
-            <OrderForm mode={path === '/new-order' ? 'new' : 'update'} />
+            <OrderForm mode={path === '/new-order' ? 'new' : 'update'} storeId={storeId} />
           </Col>
         </Row>
       </div>
