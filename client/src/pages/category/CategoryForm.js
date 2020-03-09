@@ -61,8 +61,10 @@ const CategoryForm = props => {
         //TODO: add error msg
       }
     }
-
-    fetchItemDetails();
+    
+    if (id && typeof id !== 'undefined') {
+      fetchItemDetails();  
+    }
   }, []);
 
   useEffect(() => {
