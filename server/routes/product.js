@@ -163,7 +163,8 @@ router.post(
         cost,
         coverImage,
         manufacturerId,
-        supplierId
+        supplierId,
+        true
       );
       const data = await product.add(product);
 

@@ -5,6 +5,7 @@ const {
   BadRequestError,
   InvalidModelArgumentsError,
   NoRecordFoundError,
+  InternalServerError
 } = require('../exceptions');
 require('dotenv').load();
 
@@ -39,13 +40,17 @@ Category.prototype.get = function(code) {
       `select code, name, store_id as storeId, level, parent_id as parentId, status from category where code='${code}'`,
       (error, results) => {
         if (error) {
-          reject(new NoRecordFoundError('No category found.'));
-        } else {
-          const { code, name, storeId, level, parentId, status } = results[0];
-          resolve(
-            new Category(code, name, storeId, '', level, parentId, status)
-          );
+          return reject(new InternalServerError('Server error on requesting category.'));
         }
+        
+        if (!Array.isArray(results) || !results.length) {
+          return reject(new NoRecordFoundError('No category found.'));
+        }
+
+        const { code, name, storeId, level, parentId, status } = results[0];
+        resolve(
+          new Category(code, name, storeId, '', level, parentId, status)
+        );
       }
     );
   });
