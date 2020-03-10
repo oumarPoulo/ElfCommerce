@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import config from '../config';
+import { getUserToken } from '../lib/auth';
 
 const SUBMIT = 'app.account.submit';
 const SUBMIT_SUCCESS = 'app.account.submitSuccess';
@@ -139,7 +140,7 @@ export function* getAccountsHandler(action) {
         config.apiDomain
       }/stores/${storeId}/accounts?page=${pageNo}&size=${pageSize}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -156,7 +157,7 @@ export function* getAccountDetailsHandler(action) {
       `${config.apiDomain}/stores/${storeId}/accounts/${accountId}`,
       {
         headers: {
-          authorization: localStorage.getItem(config.accessTokenKey),
+          authorization: getUserToken(),
         },
       }
     );
@@ -174,7 +175,7 @@ export function* getAccountHandler(action) {
       `${config.apiDomain}/stores/${storeId}/accounts/${accountId}`,
       {
         headers: {
-          authorization: localStorage.getItem(config.accessTokenKey),
+          authorization: getUserToken(),
         },
       }
     );
@@ -194,7 +195,7 @@ export function* upsertAccountHandler(action) {
         value.mode === 'new' ? '' : '/' + value.accountId
       }`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
         'Content-Type': 'application/json',
       },
       data: value,
@@ -213,7 +214,7 @@ export function* updateAccountStatusHandler(action) {
       method: !status ? 'delete' : 'patch',
       url: `${config.apiDomain}/stores/${storeId}/accounts/${accountId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 

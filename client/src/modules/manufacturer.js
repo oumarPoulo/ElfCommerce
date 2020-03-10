@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import config from '../config';
+import { getUserToken } from '../lib/auth';
 
 const GET_ALL = 'app.manufacturer.getAll';
 const GET_ITEM = 'app.manufacturer.getItem';
@@ -108,7 +109,7 @@ export function* getManufacturersHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/manufacturers?page=${pageNo}&size=${pageSize}${activeOnly ? '&activeOnly=true' : ''}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -125,7 +126,7 @@ export function* getManufacturerDetailsHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/manufacturers/${manufacturerId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -142,7 +143,7 @@ export function* upsertManufacturerHandler(action) {
       method: value.mode === 'new' ? 'post' : 'put',
       url: `${config.apiDomain}/stores/${value.storeId}/manufacturers${value.mode === 'new' ? '' : '/' + value.manufacturerId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
         'Content-Type': 'application/json',
       },
       data: value,
@@ -161,7 +162,7 @@ export function* updateManufacturerStatusHandler(action) {
       method: !status ? 'delete' : 'patch',
       url: `${config.apiDomain}/stores/${storeId}/manufacturers/${manufacturerId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 

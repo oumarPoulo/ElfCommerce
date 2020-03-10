@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Button, Row, Col, Table, Input } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
 import numeral from 'numeral';
-import { selectOrderProduct, addOrderProduct } from '../../modules/order';
-import { searchProducts, clearSearchProducts } from '../../modules/product';
+import { getUserToken } from '../../lib/auth';
 import { FormContext } from '../contexts';
 import config from '../../config';
 
@@ -37,7 +34,7 @@ const ProductSearchForm = props => {
           config.apiDomain
         }/stores/${storeId}/products?q=${keyword}&page=1&size=200`,
         headers: {
-          authorization: localStorage.getItem(config.accessTokenKey),
+          authorization: getUserToken(),
         },
       });
 

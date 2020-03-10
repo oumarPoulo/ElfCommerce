@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import config from '../config';
+import { getUserToken } from '../lib/auth';
 
 const GET_ALL = 'app.product.getAll';
 const GET_ALL_SUCCESS = 'app.product.getAllSuccess';
@@ -146,7 +147,7 @@ export function* getProductsHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/products?page=${pageNo}&size=${pageSize}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -163,7 +164,7 @@ export function* searchProductsHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/products?q=${keyword}&page=${pageNo}&size=${pageSize}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -181,7 +182,7 @@ export function* getProductDetailsHandler(action) {
         action.value.productId
         }`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -198,7 +199,7 @@ export function* upsertProductHandler(action) {
       method: value.mode === 'new' ? 'post' : 'put',
       url: `${config.apiDomain}/stores/${value.storeId}/products${value.mode === 'new' ? '' : '/' + value.productId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
       data: value,
     });
@@ -216,7 +217,7 @@ export function* updateProductStatusHandler(action) {
       method: !status ? 'delete' : 'patch',
       url: `${config.apiDomain}/stores/${storeId}/products/${productId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -233,7 +234,7 @@ export function* getProductAttributesHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/products/${productId}/attributes`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 

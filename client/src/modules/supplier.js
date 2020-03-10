@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import config from '../config';
+import { getUserToken } from '../lib/auth';
 
 const GET_ALL = 'app.supplier.getAll';
 const GET_ITEM = 'app.supplier.getItem';
@@ -110,7 +111,7 @@ export function* getSuppliersHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/suppliers?page=${pageNo}&size=${pageSize}${activeOnly ? '&activeOnly=true' : ''}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -127,7 +128,7 @@ export function* getSupplierDetailsHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/suppliers/${supplierId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -144,7 +145,7 @@ export function* upsertSupplierHandler(action) {
       method: value.mode === 'new' ? 'post' : 'put',
       url: `${config.apiDomain}/stores/${value.storeId}/suppliers${value.mode === 'new' ? '' : '/' + value.supplierId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
         'Content-Type': 'application/json',
       },
       data: value,
@@ -163,7 +164,7 @@ export function* updateSupplierStatusHandler(action) {
       method: !status ? 'delete' : 'patch',
       url: `${config.apiDomain}/stores/${storeId}/suppliers/${supplierId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 

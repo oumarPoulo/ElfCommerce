@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, CardTitle, Table, Row, Col } from 'reactstrap';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
+import { decodeUserToken, getUserToken } from '../lib/auth';
 import FeedItem from './dashboard/FeedItem';
 import ShipTodayItem from './dashboard/ShipTodayItem';
 import Tile from '../components/Tile';
@@ -18,7 +18,7 @@ const Dashboard = props => {
 
   const {
     data: { storeId },
-  } = jwt.decode(localStorage.getItem(config.accessTokenKey));
+  } = decodeUserToken();
 
   const [dashboard, setDashboard] = useState(null);
 
@@ -29,7 +29,7 @@ const Dashboard = props => {
           method: 'get',
           url: `${config.apiDomain}/stores/${storeId}/summary`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 

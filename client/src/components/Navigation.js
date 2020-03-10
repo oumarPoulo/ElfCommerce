@@ -13,15 +13,15 @@ import {
 } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
 import { MdNotificationsNone } from 'react-icons/md';
-import jwt from 'jsonwebtoken';
 import config from '../config';
+import { decodeUserToken, getUserToken } from '../lib/auth';
 
 const Navigation = props => {
   const [account, setAccount] = useState(null);
 
   if (
     window.location.pathname !== '/' &&
-    !localStorage.getItem(config.accessTokenKey)
+    !getUserToken()
   ) {
     window.location.href = '/';
   }
@@ -31,13 +31,13 @@ const Navigation = props => {
       try {
         const {
           data: { storeId, accountId },
-        } = jwt.decode(localStorage.getItem(config.accessTokenKey));
+        } = decodeUserToken();
 
         const res = await axios.get(
           `${config.apiDomain}/stores/${storeId}/accounts/${accountId}`,
           {
             headers: {
-              authorization: localStorage.getItem(config.accessTokenKey),
+              authorization: getUserToken(),
             },
           }
         );

@@ -1,26 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { IntlProvider, addLocaleData } from 'react-intl';
-import locale_en from 'react-intl/locale-data/en';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import store from './store';
-import registerServiceWorker from './registerServiceWorker';
-import './App.css';
-import messages_en from './utils/translations/en.json';
+import { IntlProviderWrapper } from './context/IntlContext';
 
-addLocaleData([...locale_en]);
+import './App.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import store from './store';
 
 const ElfCommerce = () => (
-  // TODO: language setting should be dynamic
   <Provider store={store}>
-    <IntlProvider locale="en" messages={messages_en}>
+    <IntlProviderWrapper>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </IntlProvider>
+    </IntlProviderWrapper>
   </Provider>
 );
 ReactDOM.render(<ElfCommerce />, document.getElementById('root'));

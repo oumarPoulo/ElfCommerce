@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import config from '../config';
+import { getUserToken } from '../lib/auth';
 
 const GET_ALL = 'app.order.getAll';
 const GET_ALL_SUCCESS = 'app.order.getAllSuccess';
@@ -149,7 +150,7 @@ export function* getOrdersHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${storeId}/orders?page=${pageNo}&size=${pageSize}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -167,7 +168,7 @@ export function* getOrderDetailsHandler(action) {
         action.value.orderId
         }`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -184,7 +185,7 @@ export function* upsertOrderHandler(action) {
       method: value.mode === 'new' ? 'post' : 'put',
       url: `${config.apiDomain}/stores/${value.storeId}/orders${value.mode === 'new' ? '' : '/' + value.orderId}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
         'Content-Type': 'application/json',
       },
       data: value,

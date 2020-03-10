@@ -18,6 +18,7 @@ import {
 } from 'reactstrap';
 import { MdSave } from 'react-icons/md';
 import { Loader } from '../../components';
+import { getUserToken } from '../../lib/auth';
 import { FormContext } from '../contexts';
 import config from '../../config';
 
@@ -42,7 +43,7 @@ const AccountForm = props => {
           `${config.apiDomain}/stores/${storeId}/accounts/${id}`,
           {
             headers: {
-              authorization: localStorage.getItem(config.accessTokenKey),
+              authorization: getUserToken(),
             },
           }
         );
@@ -70,7 +71,7 @@ const AccountForm = props => {
             mode === 'new' ? '' : '/' + id
           }`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
             'Content-Type': 'application/json',
           },
           data: accountDetails,

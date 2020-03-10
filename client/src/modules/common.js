@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import config from '../config';
+import { getUserToken } from '../lib/auth';
 
 export const GET_CURRENCIES = 'app.common.getCurrencies';
 export const GET_CURRENCIES_SUCCESS = 'app.common.getCurrenciesSuccess';
@@ -71,7 +72,7 @@ export function* getCountriesHandler(action) {
   try {
     const res = yield axios.get(`${config.apiDomain}/countries`, {
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -85,7 +86,7 @@ export function* getCurrenciesHandler(action) {
   try {
     const res = yield axios.get(`${config.apiDomain}/currencies`, {
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 
@@ -105,7 +106,7 @@ export function* uploadFileHandler(action) {
       method: 'post',
       url: `${config.apiDomain}/upload`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
         'content-type': 'multipart/form-data',
       },
       data: formData,

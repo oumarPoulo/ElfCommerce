@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { MdAddCircleOutline, MdSearch } from 'react-icons/md';
 import ReactPaginate from 'react-paginate';
-import jwt from 'jsonwebtoken';
+import { decodeUserToken, getUserToken } from '../lib/auth';
 import SupplierListItem from './supplier/SupplierListItem';
 import { Loader } from '../components';
 import config from '../config';
@@ -28,7 +28,7 @@ const SupplierList = props => {
 
   const {
     data: { storeId },
-  } = jwt.decode(localStorage.getItem(config.accessTokenKey));
+  } = decodeUserToken();
 
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -45,7 +45,7 @@ const SupplierList = props => {
             config.apiDomain
           }/stores/${storeId}/suppliers?page=${pageNo}&size=${pageSize}`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -69,7 +69,7 @@ const SupplierList = props => {
             selectedItem.id
           }`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
       } catch (e) {
@@ -194,7 +194,8 @@ const SupplierList = props => {
                 </Table>
                 <div className="pagination-container">
                   <span className="text-muted">
-                    Total {result.count} entries
+                    <FormattedMessage id="sys.total" /> {result.count}&nbsp;
+                    <FormattedMessage id="sys.entries" />
                   </span>
                   <ReactPaginate
                     pageCount={total || 1}

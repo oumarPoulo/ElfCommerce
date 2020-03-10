@@ -165,5 +165,8 @@
   "sys.joinedOn": "Joined on",
   "sys.revoke": "Revoke",
   "sys.revoked": "Revoked",
-  "sys.defaultPwd": "Default password: 123"
+  "sys.defaultPwd": "Default password: 123",
+  "sys.entries": "entries",
+  "sys.localeEN": "English",
+  "sys.localeFR": "French"
 }

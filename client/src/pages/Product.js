@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb, BreadcrumbItem, Button, Row, Col } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 import { FormattedMessage } from 'react-intl';
+import { decodeUserToken } from '../lib/auth';
 import ProductForm from './product/ProductForm';
 import { FormContext } from './contexts';
-import config from '../config';
 
 class Product extends Component {
   render() {
@@ -19,7 +18,7 @@ class Product extends Component {
     } = this.props;
     const {
       data: { storeId },
-    } = jwt.decode(localStorage.getItem(config.accessTokenKey));
+    } = decodeUserToken();
 
     return (
       <FormContext.Provider value={{ storeId, id }}>

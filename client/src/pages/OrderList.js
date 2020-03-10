@@ -17,8 +17,8 @@ import { withRouter } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { MdSearch, MdAddCircleOutline } from 'react-icons/md';
 import ReactPaginate from 'react-paginate';
-import jwt from 'jsonwebtoken';
 import 'react-datepicker/dist/react-datepicker.css';
+import { decodeUserToken, getUserToken } from '../lib/auth';
 import OrderListItem from './order/OrderListItem';
 import { Loader } from '../components';
 import config from '../config';
@@ -31,7 +31,7 @@ const OrderList = props => {
 
   const {
     data: { storeId },
-  } = jwt.decode(localStorage.getItem(config.accessTokenKey));
+  } = decodeUserToken();
 
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -47,7 +47,7 @@ const OrderList = props => {
             config.apiDomain
           }/stores/${storeId}/orders?page=${pageNo}&size=${pageSize}`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -188,7 +188,8 @@ const OrderList = props => {
                 </Table>
                 <div className="pagination-container">
                   <span className="text-muted">
-                    Total {result.count} entries
+                    <FormattedMessage id="sys.total" /> {result.count}&nbsp;
+                    <FormattedMessage id="sys.entries" />
                   </span>
                   <ReactPaginate
                     pageCount={total || 1}

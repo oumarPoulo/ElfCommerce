@@ -28,6 +28,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 import classnames from 'classnames';
+import { getUserToken } from '../../lib/auth';
 import ProductAttributeForm from './ProductAttributeForm';
 import ProductAttributeListItem from './ProductAttributeListItem';
 import { ParallelLoader } from '../../components';
@@ -71,7 +72,7 @@ const ProductForm = props => {
             config.apiDomain
           }/stores/${storeId}/categories?page=1&size=200&activeOnly=true`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -94,7 +95,7 @@ const ProductForm = props => {
             config.apiDomain
           }/stores/${storeId}/suppliers?page=1&size=200&activeOnly=true`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -116,7 +117,7 @@ const ProductForm = props => {
             config.apiDomain
           }/stores/${storeId}/manufacturers?page=1&size=200&activeOnly=true`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -136,7 +137,7 @@ const ProductForm = props => {
           method: 'get',
           url: `${config.apiDomain}/stores/${storeId}/products/${id}`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -160,7 +161,7 @@ const ProductForm = props => {
             config.apiDomain
           }/stores/${storeId}/products/${id}/attributes`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -192,7 +193,7 @@ const ProductForm = props => {
             mode === 'new' ? '' : '/' + id
           }`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
             'Content-Type': 'application/json',
           },
           data: itemDetails,
@@ -527,7 +528,7 @@ const ProductForm = props => {
                       <CardBody>
                         <FormGroup row>
                           <Label for="price" sm={4}>
-                            <FormattedMessage id="sys.price" />
+                            <FormattedMessage id="sys.unitPrice" />
                             <span className="text-danger mandatory-field">
                               *
                             </span>

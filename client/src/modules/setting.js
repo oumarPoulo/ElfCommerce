@@ -1,6 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import config from '../config';
+import { getUserToken } from '../lib/auth';
 
 const GET_STORE_SETTINGS = 'app.setting.getStoreSettings';
 const GET_STORE_SETTINGS_SUCCESS = 'app.setting.getStoreSettingsSuccess';
@@ -49,7 +50,7 @@ export function* getStoreSettingsHandler(action) {
       method: 'get',
       url: `${config.apiDomain}/stores/${action.value}`,
       headers: {
-        authorization: localStorage.getItem(config.accessTokenKey),
+        authorization: getUserToken(),
       },
     });
 

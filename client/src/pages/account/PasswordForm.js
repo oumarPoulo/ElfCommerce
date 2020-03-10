@@ -14,6 +14,7 @@ import {
   Col,
   Alert,
 } from 'reactstrap';
+import { getUserToken } from '../../lib/auth';
 import { FormContext } from '../contexts';
 import config from '../../config';
 
@@ -35,7 +36,7 @@ const PasswordForm = props => {
           method: 'put',
           url: `${config.apiDomain}/stores/${storeId}/accounts/${id}`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
             'Content-Type': 'application/json',
           },
           data: values,

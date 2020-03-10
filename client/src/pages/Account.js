@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb, BreadcrumbItem, Button, Col } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 import { FormattedMessage } from 'react-intl';
+import { decodeUserToken } from '../lib/auth';
 import AccountForm from './account/AccountForm';
 import { FormContext } from './contexts';
-import config from '../config';
 
 const Account = props => {
   const {
@@ -18,7 +17,7 @@ const Account = props => {
   } = props;
   const {
     data: { storeId },
-  } = jwt.decode(localStorage.getItem(config.accessTokenKey));
+  } = decodeUserToken();
 
   return (
     <FormContext.Provider value={{ storeId, id }}>

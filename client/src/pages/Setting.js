@@ -15,14 +15,13 @@ import {
 } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import jwt from 'jsonwebtoken';
 import classnames from 'classnames';
+import { decodeUserToken } from '../lib/auth';
 import AccountSettingForm from './account/AccountSettingForm';
 import PasswordForm from './account/PasswordForm';
 import StoreSettingForm from './setting/StoreSettingForm';
 import CredentialListItem from './setting/CredentialListItem';
 import { FormContext } from './contexts';
-import config from '../config';
 
 const Setting = props => {
   const { history } = props;
@@ -35,7 +34,7 @@ const Setting = props => {
   const handleApiSettingSubmit = () => {};
   const {
     data: { storeId, accountId },
-  } = jwt.decode(localStorage.getItem(config.accessTokenKey));
+  } = decodeUserToken();
 
   return (
     <FormContext.Provider value={{ storeId, id: accountId }}>

@@ -1,23 +1,27 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import axios from 'axios';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import {
-  Col,
-  Row,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Label,
-  Input,
+  Alert,
   Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  FormGroup,
+  Input,
+  Label,
+  Row,
 } from 'reactstrap';
 import { MdSave } from 'react-icons/md';
-import { ParallelLoader } from '../../components/Loader';
-import { FormContext } from '../contexts';
+
 import config from '../../config';
+import { FormContext } from '../contexts';
+import { getUserToken } from '../../lib/auth';
+import { IntlContext } from '../../context/IntlContext';
+import { ParallelLoader } from '../../components/Loader';
 
 const storeSettingValidation = Yup.object().shape({
   name: Yup.string().required('Required'),
@@ -26,18 +30,23 @@ const storeSettingValidation = Yup.object().shape({
   language: Yup.string().required('Required'),
 });
 
-const StoreSettingForm = props => {
-  const { storeId, id } = useContext(FormContext);
-  const [countries, setCountries] = useState([]);
-  const [currencies, setCurrencies] = useState([]);
-  const [itemDetails, setItemDetails] = useState(null);
+
+// eslint-disable-next-line react/prop-types
+const StoreSettingForm = ({ intl }) => {
+  const intlContext = useContext(IntlContext);
+  const [ countries, setCountries ] = useState([]);
+  const [ currencies, setCurrencies ] = useState([]);
+  const [ itemDetails, setItemDetails ] = useState({});
+  const [ submitError, setSubmitError ] = useState(false);
+  const [ submitSuccess, setSubmitSuccess ] = useState(false);
+  const { storeId } = useContext(FormContext);
 
   useEffect(() => {
     async function fetchCountries() {
       try {
         const res = await axios.get(`${config.apiDomain}/countries`, {
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -53,7 +62,7 @@ const StoreSettingForm = props => {
       try {
         const res = await axios.get(`${config.apiDomain}/currencies`, {
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -69,7 +78,7 @@ const StoreSettingForm = props => {
       try {
         const res = await axios.get(`${config.apiDomain}/stores/${storeId}`, {
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -80,6 +89,30 @@ const StoreSettingForm = props => {
     fetchItemDetails();
   }, []);
 
+  async function updateSettings(values) {
+    try {
+      await axios({
+        method: 'put',
+        url: `${config.apiDomain}/stores/${storeId}`,
+        headers: {
+          authorization: getUserToken(),
+          'Content-Type': 'application/json',
+        },
+        data: values,
+      });
+      // track store locale changes
+      const localeHasChanged = itemDetails.language !== values.language;
+      setSubmitSuccess(true);
+      setItemDetails(values);
+      // set new locale
+      if (localeHasChanged) {
+        intlContext.switchLocale(values.language);
+      }
+    } catch (e) {
+      setSubmitError(true);
+    }
+  }
+
   return !itemDetails ? (
     <ParallelLoader />
   ) : (
@@ -87,7 +120,9 @@ const StoreSettingForm = props => {
       enableReinitialize
       initialValues={{ ...itemDetails }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
+        setSubmitting(true);
+        updateSettings(values);
+        setSubmitting(false);
       }}
       validationSchema={storeSettingValidation}
     >
@@ -121,6 +156,15 @@ const StoreSettingForm = props => {
               </Button>
               <br />
               <br />
+              {submitError ? (
+                <Alert color="danger">
+                  <FormattedMessage id="sys.newFailed" />
+                </Alert>
+              ) : submitSuccess ? (
+                <Alert color="success">
+                  <FormattedMessage id="sys.newSuccess" />
+                </Alert>
+              ) : null}
             </Col>
           </Row>
           <Row>
@@ -224,7 +268,18 @@ const StoreSettingForm = props => {
                         onChange={handleChange}
                         value={language}
                       >
-                        {[{ id: 'en', name: 'English' }].map(lang => (
+                        {[
+                          {
+                            id: 'en',
+                            // eslint-disable-next-line react/prop-types
+                            name: intl.formatMessage({ id: 'sys.localeEN'}),
+                          },
+                          {
+                            id: 'fr',
+                            // eslint-disable-next-line react/prop-types
+                            name: intl.formatMessage({ id: 'sys.localeFR'}),
+                          },
+                        ].map(lang => (
                           <option key={lang.id} value={lang.id}>
                             {lang.name}
                           </option>
@@ -280,4 +335,4 @@ const StoreSettingForm = props => {
   );
 };
 
-export default StoreSettingForm;
+export default injectIntl(StoreSettingForm);

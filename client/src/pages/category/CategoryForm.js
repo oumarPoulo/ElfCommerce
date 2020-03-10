@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { Col, FormGroup, Label, Button, Input, Alert, Row } from 'reactstrap';
 import { MdSave } from 'react-icons/md';
 import { Loader } from '../../components';
+import { getUserToken } from '../../lib/auth';
 import { FormContext } from '../contexts';
 import config from '../../config';
 
@@ -32,7 +33,7 @@ const CategoryForm = props => {
             config.apiDomain
           }/stores/${storeId}/categories?page=1&size=200`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -52,7 +53,7 @@ const CategoryForm = props => {
           method: 'get',
           url: `${config.apiDomain}/stores/${storeId}/categories/${id}`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
           },
         });
 
@@ -76,7 +77,7 @@ const CategoryForm = props => {
             mode === 'new' ? '' : '/' + id
           }`,
           headers: {
-            authorization: localStorage.getItem(config.accessTokenKey),
+            authorization: getUserToken(),
             'Content-Type': 'application/json',
           },
           data: itemDetails,
