@@ -9,15 +9,13 @@
   <img src="https://img.shields.io/badge/MySQL-5.7.+-blue.svg">
 </p>
 
-ElfCommerce is an open source ecommerce dashboard written in ReactJS + ExpressJS and curretly under active development. The goal of this project is to provide a data-driven backoffice solution for SMEs. It will allow yout to manage your inventory, orders, supply chain, shipments, payments and everything else in one place with intuitive UI.
-
+ElfCommerce is a headless ecommerce dashboard written in ReactJS + ExpressJS. Here is the [developer guide](./docs/guide.md) for you to start with this project.
 
 ## Demo account
 
 Username: test@test.com
 
 Password: 123
-
 
 <img src="https://media.giphy.com/media/6utXdpDYcFfa3szDcI/giphy.gif" />
 
