@@ -16,7 +16,7 @@ Use only singular term for models and utils, for instance, the file name for acc
 
 ### Constants
 
-Use **UPPER_SNAKE_CASE** for constants with value defined at compilation time, and use **camelCase** for those with value computed at runtime.
+Use **UPPER_SNAKE_CASE** for constants with value defined at compile time, and use **camelCase** for those with value computed at runtime.
 
 ### Variables
 
