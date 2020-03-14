@@ -24,7 +24,7 @@ Use **UPPER_SNAKE_CASE** for constants with value defined at compile time, and u
 
 Use **camelCase** for all variables.
 
-## Pull Request
+## Pull Requests
 
 - If it's for a new feature, please name your PR **feature/something**
 - If it's for bug fixing, please name your PR **fix/something**
@@ -35,4 +35,4 @@ PRs not using the correct naming convention will not be accepted.
 
 # GitHub project page
 
-I use GitHub to track the development status. Don't worry, it's not a sprint board or anything.
+I use GitHub project page to manage the development tasks. Don't worry, it's not like a sprint board or anything.
