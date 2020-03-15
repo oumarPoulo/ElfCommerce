@@ -41,7 +41,9 @@ Use **camelCase** for all variables.
 
 Rebase is prohibited. There are many articles about merging vs rebasing, and we use only merging for this project.
 
-### 4. [Optional] Move your card to **Done** if your PR is merged to the master branch
+### 4. Delete your branch after it's merged.
+
+### 5. [Optional] Move your card to **Done** if your PR is merged to the master branch
 
 # GitHub project page
 
