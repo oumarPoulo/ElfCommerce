@@ -9,15 +9,13 @@
   <img src="https://img.shields.io/badge/MySQL-5.7.+-blue.svg">
 </p>
 
-ElfCommerce is an open source ecommerce dashboard written in ReactJS + ExpressJS and curretly under active development. The goal of this project is to provide a data-driven backoffice solution for SMEs. It will allow yout to manage your inventory, orders, supply chain, shipments, payments and everything else in one place with intuitive UI.
-
+ElfCommerce is a headless ecommerce dashboard written in ReactJS + ExpressJS. Here is the [developer guide](./docs/guide.md) for you to start with this project.
 
 ## Demo account
 
 Username: test@test.com
 
 Password: 123
-
 
 <img src="https://media.giphy.com/media/6utXdpDYcFfa3szDcI/giphy.gif" />
 
@@ -105,13 +103,11 @@ cd clint && yarn test [test_directory]
 cd server && yarn test [test_directory]
 ```
 
-## How to contribute to this project?
-
-Your contribution is appreicated. For the purpose of having good project management, I encourage you to understand the project structure and _way of working_ before you start to contribute to this project.
+# Project structure
 
 **_Project restructured based on Fractal + ducks for greater scalability_**
 
-````
+```
 ├── .circleci                    # CircleCI config file
 ├── client                       # The web frontend written in ReactJS
 │   ├── public                   # Static public assets and uploads
@@ -130,6 +126,8 @@ Your contribution is appreicated. For the purpose of having good project managem
 │   │   └── App.js               # ** Where React webapp routes configured.
 │   │   └── index.js             # React webapp start point
 │   │   └── config.js            # All global configurations(not included in this repo)
+├── scripts                      # Scaffolding & automation scripts
+│   └── installation.js          # Script to restore database, generate .env file etc.
 ├── server                       # The web server part
 │   ├── db                       # Directory for database raw sql file, migration script etc.
 │   ├── exceptions               # Directory for all API exception types
@@ -169,24 +167,7 @@ Your contribution is appreicated. For the purpose of having good project managem
 └── .prettierrc                  # **Don't change settings here.
 └── LICENSE                      # Project license file, **Don't change contents here.
 └── README.md                    # **Don't change contents here.
-### 1. Always work on your own feature or bugfix branch.
-
-You will need to follow the naming convention if it's a new feature:
-**feature/xxx-xxx-xx**
-
-or **fix/xxx-xxx-xx** if it's a bug or other type of fixing branch.
-
-### 2. Always run eslint
-
-Before creating a PR, you should run:
-
-```console
-yarn lint:client
-````
-
-to make sure all formatting or other issues have been properly fixed.
-
-...
+```
 
 ## About the logo
 
@@ -195,3 +176,7 @@ Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https:/
 ## License
 
 Elf Commerce is [Apache-2.0 licensed.](https://github.com/ccwukong/elfcommerce/blob/master/LICENSE)
+
+```
+
+```
