@@ -103,6 +103,72 @@ cd clint && yarn test [test_directory]
 cd server && yarn test [test_directory]
 ```
 
+# Project structure
+
+**_Project restructured based on Fractal + ducks for greater scalability_**
+
+```
+├── .circleci                    # CircleCI config file
+├── client                       # The web frontend written in ReactJS
+│   ├── public                   # Static public assets and uploads
+│   ├── src                      # ReactJS source code
+│   │   ├── components           # Shared components, like Button, Input etc.
+│   │   │   ├── __tests__        # Unit test for components
+│   │   ├── pages                # Top level components
+│   │   │   ├── __tests__        # Unit test for containers
+│   │   │   ├── ...              # Sub components of top level components
+│   │   ├── modules              # Actions + Reducers using ducks file structure
+│   │   │   ├── __tests__        # Unit test for reducers
+│   │   ├── utils                # Utilities like language, date utils, string utils etc.
+│   │   │   ├── languages        # All language translation .json files
+│   │   │   │   └── en.json      # Language file
+│   │   └── App.css              # Your customized styles should be added here
+│   │   └── App.js               # ** Where React webapp routes configured.
+│   │   └── index.js             # React webapp start point
+│   │   └── config.js            # All global configurations(not included in this repo)
+├── scripts                      # Scaffolding & automation scripts
+│   └── installation.js          # Script to restore database, generate .env file etc.
+├── server                       # The web server part
+│   ├── db                       # Directory for database raw sql file, migration script etc.
+│   ├── exceptions               # Directory for all API exception types
+│   ├── models                   # Directory for all API models
+│   │   ├── tests                # Directory for all API models test cases
+│   │   └── account.js           # User model
+│   │   └── auth.js              # Authentication model
+│   │   └── categorty.js         # Category model
+│   │   └── index.js             # Aggregates all model files
+│   │   └── manufacturer.js      # Manufacturer model
+│   │   └── order.js             # Order model
+│   │   └── product.js           # Product model
+│   │   └── public.js            # Public data model
+│   │   └── report.js            # Report model
+│   │   └── store.js             # Store model
+│   │   └── supplier.js          # Supplier model
+│   │   ├── vendor               # For 3rd party modules
+│   ├── routes                   # Directory for all router files
+│   │   └── auth.js              # Router for authentication endpoints
+│   │   └── category.js          # Router for category endpoints
+│   │   └── common.js            # Router for public data endpoints
+│   │   └── index.js             # Aggregates all router files
+│   │   └── manufacturer.js      # Router for manufacturer endpoints
+│   │   └── order.js             # Router for order endpoints
+│   │   └── product.js           # Router for product endpoints
+│   │   └── store.js             # Router for store endpoints
+│   │   └── supplier.js          # Router for supplier endpoints
+│   │   ├── vendor               # For 3rd party modules
+│   ├── uploads                  # Directory for image uploading, will be created automatically(not included in this repo)
+│   └── .env                     # Global environment variables(not included in this repo)
+│   └── app.js                   # Restful APIs written in ExpressJS
+│   └── app.local.js             # Wrapper file for claudia.js
+│   └── lambda.js                # Used by claudiajs for severless deployment, **Don't change contents here.
+│   └── package.json             # All project dependancies
+│   └── middlewares.js           # Middlewares for ExpressJS routes
+└── .eslintrc.json               # **Don't change settings here.
+└── .prettierrc                  # **Don't change settings here.
+└── LICENSE                      # Project license file, **Don't change contents here.
+└── README.md                    # **Don't change contents here.
+```
+
 ## About the logo
 
 Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0)
@@ -110,3 +176,7 @@ Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https:/
 ## License
 
 Elf Commerce is [Apache-2.0 licensed.](https://github.com/ccwukong/elfcommerce/blob/master/LICENSE)
+
+```
+
+```

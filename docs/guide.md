@@ -24,17 +24,25 @@ Use **UPPER_SNAKE_CASE** for constants with value defined at compile time, and u
 
 Use **camelCase** for all variables.
 
-## Pull Requests
+# How to work on a new feature, bug fixing or refactoring?
 
-- If it's for a new feature, please name your PR **feature/something**
-- If it's for bug fixing, please name your PR **fix/something**
-- If it's for code cleaning up or tree shaking, please name your PR **chore/something**
-- If it's a major code refactoring, please name your PR **refactor/something**
+### 1. [Optional] Move your card on GitHub project page to **In Progress** if you'll be working on a planned feature.
 
-PRs not using the correct naming convention will not be accepted.
+### 2. Always branch out from the **master branch** and follow the naming convention:
+
+- If it's for a new feature, please name your branch **feature/something**
+- If it's for bug fixing, please name your branch **fix/something**
+- If it's for code cleaning up or tree shaking, please name your branch **chore/something**
+- If it's a major code refactoring, please name your branch **refactor/something**
+
+**PRs not using the correct naming convention will not be accepted.**
+
+### 3. Your PR will need code owner's approval to be merged to the master branch.
+
+Rebase is prohibited. There are many articles about merging vs rebasing, and we use only merging for this project.
+
+### 4. [Optional] Move your card to **Done** if your PR is merged to the master branch
 
 # GitHub project page
 
 I use GitHub project page to manage the development tasks. Don't worry, it's not like a sprint board or anything.
-
-**TBC**
